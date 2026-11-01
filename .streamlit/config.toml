@@ -1,0 +1,18 @@
+# Widget values are deliberately restored when the bilingual labels change.
+[global]
+disableWidgetStateDuplicationWarning = true
+
+[theme]
+base = "dark"
+primaryColor = "#4ce0bd"
+backgroundColor = "#07121f"
+secondaryBackgroundColor = "#102233"
+textColor = "#e7effb"
+font = "sans serif"
+
+[server]
+headless = true
+maxUploadSize = 2
+
+[browser]
+gatherUsageStats = false

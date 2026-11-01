@@ -1,0 +1,26 @@
+# Python and local tools
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+*.egg-info/
+build/
+dist/
+
+# Secrets and local-only data
+.env
+.env.*
+.streamlit/secrets.toml
+data_private/
+uploads/
+*.key
+*.pem
+
+# Operating system / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

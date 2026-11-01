@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>UCF & Wasserstein Explorer · Renewable energy uncertainty</title>
+<style>
+:root{--ink:#172d39;--muted:#687c84;--paper:#f2f5f3;--card:#fff;--line:#e2e9e5;--teal:#147f73;--mint:#d5eee5;--coral:#d66a54;--purple:#7765aa;--blue:#294f62;--shadow:0 3px 18px rgba(27,54,55,.04);font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,"Segoe UI",Arial,sans-serif;font-size:14px;line-height:1.5}
+button,select,input{font:inherit}button,select{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible{outline:3px solid #eda772;outline-offset:3px}a{color:inherit}.shell{width:min(1510px,calc(100% - 56px));margin:auto}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:79px}.brand{display:flex;align-items:center;gap:12px}.brandmark{width:36px;height:36px;border-radius:11px;background:#174b47;color:white;display:grid;place-items:center;font-size:20px;font-weight:700}.brand-main{font-size:15px;letter-spacing:-.02em;font-weight:800}.brand-sub{font-size:10px;font-weight:700;letter-spacing:.115em;color:#82918f;text-transform:uppercase}.topactions{display:flex;align-items:center;gap:14px}.status{display:flex;align-items:center;gap:7px;font-size:11px;color:#617875;text-transform:uppercase;letter-spacing:.1em;font-weight:700}.dot{height:7px;width:7px;border-radius:50%;background:#61ba97;box-shadow:0 0 0 4px #dcefe6}.lang{background:white;border:1px solid #dce6df;border-radius:9px;padding:8px 12px;color:#34534f;font-weight:700;font-size:12px}
+.hero{min-height:252px;border-radius:19px;background:#15353c;display:flex;justify-content:space-between;align-items:center;gap:18px;overflow:hidden;position:relative;padding:38px 47px;color:#f7faf7}.hero:before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:36px 36px;mask-image:linear-gradient(90deg,transparent 40%,#000)}.hero-copy{position:relative;z-index:1;max-width:810px}.eyebrow{margin:0 0 11px;color:#a4dbc6;font-size:10px;font-weight:800;letter-spacing:.17em;text-transform:uppercase}.hero h1{margin:0;font-size:clamp(36px,3.35vw,52px);letter-spacing:-.055em;line-height:1.04;font-weight:750}.hero h1 em{font-style:normal;color:#9be1c0}.hero-desc{color:#c2d4ce;font-size:14px;margin:16px 0 0;max-width:620px;line-height:1.55}.hero-meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:10px;text-transform:uppercase;letter-spacing:.12em;font-weight:700;color:#c5dad3}.hero-meta span+span:before{content:"/";padding-right:16px;color:#608078}.hero-art{width:min(32%,370px);height:175px;flex:none;position:relative;z-index:1;opacity:.93}.hero-art svg{width:100%;height:100%;overflow:visible}
+.introline{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:20px 3px 18px;color:#738580;font-size:11px;font-weight:700;letter-spacing:.09em;text-transform:uppercase}.introline strong{color:#2c4c48;font-weight:800}.layout{display:grid;grid-template-columns:292px minmax(0,1fr);gap:21px;align-items:start}.sidebar{position:sticky;top:14px;max-height:calc(100vh - 28px);overflow-y:auto;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);scrollbar-width:thin;scrollbar-color:#d2dfd8 transparent}.side-head{padding:19px 18px 13px;display:flex;justify-content:space-between;align-items:start}.overline{font-size:10px;font-weight:800;letter-spacing:.13em;text-transform:uppercase;color:#82938d}.side-title{font-size:16px;font-weight:800;letter-spacing:-.025em;margin-top:3px}.reset{border:0;background:#eef4f0;color:#407b6d;border-radius:7px;padding:6px 8px;font-size:11px;font-weight:700}.side-note{margin:0 18px 5px;color:#7b8c85;font-size:11px;line-height:1.45}.side-group{padding:15px 18px 13px;border-top:1px solid #edf1ee}.group-label{font-size:10px;letter-spacing:.13em;font-weight:800;color:#7c8f88;text-transform:uppercase;margin-bottom:13px}.control{margin:0 0 16px}.control:last-child{margin-bottom:1px}.control-line{display:flex;justify-content:space-between;align-items:start;gap:10px;font-size:12px;line-height:1.3;color:#304b4d;font-weight:650}.control-line output{color:var(--ink);white-space:nowrap;font-size:12px;font-variant-numeric:tabular-nums;font-weight:800}.control-hint{font-size:10.5px;color:#9aa7a0;margin-top:3px}.range-wrap{padding-top:8px}input[type=range]{display:block;width:100%;height:17px;margin:0;accent-color:var(--teal);touch-action:pan-y}.side-select{width:100%;border:1px solid #dbe6df;background:#f8faf8;border-radius:8px;padding:8px;color:#355451;margin-top:8px;font-size:12px}.side-button{margin-top:9px;width:100%;border:1px solid #cfe3d8;background:#ecf7f0;border-radius:8px;padding:8px 10px;color:#276e5f;font-size:11px;font-weight:800;text-align:center}.side-button:hover,.reset:hover{filter:brightness(.97)}.eqcap{font-size:11px;color:#7f908a;margin:5px 0 0}
+.content{min-width:0;display:grid;gap:18px}.panel{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow:hidden}.panel-head{padding:23px 25px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:16px}.panel-kicker{color:#8c9c93;text-transform:uppercase;font-size:10px;font-weight:800;letter-spacing:.13em;display:flex;align-items:center;gap:9px}.num{color:#fff;background:#2d625b;border-radius:6px;width:24px;height:24px;display:inline-grid;place-items:center;font-size:10px}.panel h2{margin:8px 0 4px;font-size:22px;line-height:1.18;letter-spacing:-.04em}.panel-sub{margin:0;color:#758780;font-size:12px;max-width:820px}.tag{background:#eff6f1;color:#568479;border:1px solid #dfeee4;border-radius:20px;font-size:10px;white-space:nowrap;font-weight:800;padding:5px 9px;letter-spacing:.06em;text-transform:uppercase}.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:19px 25px 0;background:#f8faf8;border:1px solid #eaf0eb;border-radius:10px}.kpi{padding:13px 16px;min-width:0}.kpi+.kpi{border-left:1px solid #e7eee9}.kpi-label{font-size:10px;color:#81918a;font-weight:700;letter-spacing:.02em}.kpi-value{font-weight:800;font-size:20px;letter-spacing:-.04em;margin-top:3px;font-variant-numeric:tabular-nums;color:#1c3940;overflow-wrap:anywhere}.kpi-value.coral{color:var(--coral)}.kpi-value.teal{color:var(--teal)}.kpi-detail{font-size:10px;color:#95a29c;margin-top:2px}
+.plots{padding:12px 25px 20px}.plot-block{padding-top:13px}.plot-block+.plot-block{border-top:1px solid #edf1ee;margin-top:9px}.plot-titlebar{display:flex;align-items:start;justify-content:space-between;gap:10px;flex-wrap:wrap}.plot-title{font-size:12px;font-weight:800;color:#33534f}.plot-subtitle{color:#8b9b94;font-size:10px;margin-top:2px}.legend{display:flex;align-items:center;flex-wrap:wrap;gap:12px;color:#71847d;font-size:10px;font-weight:650}.legend-item{display:flex;align-items:center;gap:6px}.swatch{height:3px;width:17px;border-radius:3px;background:var(--color)}.swatch.dashed{height:0;border-top:2px dashed var(--color);background:transparent}.swatch.dotmark{height:8px;width:8px;border-radius:50%;background:var(--color)}canvas{display:block;width:100%;height:205px;touch-action:pan-y}.canvas-tall{height:230px}.canvas-short{height:190px}.canvas-drag{cursor:crosshair}.chart-foot{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;color:#92a099;font-size:10px;margin-top:-3px}.formula{margin:0 25px 22px;border:1px solid #dfece4;background:#f6faf7;border-radius:10px;padding:14px 16px;color:#2a4b47}.formula-label{font-size:10px;color:#789289;text-transform:uppercase;letter-spacing:.1em;font-weight:800;margin-bottom:7px}.formula-math{font-family:Georgia,"Times New Roman",serif;font-size:16px;line-height:1.8;overflow-wrap:anywhere;color:#223f3d}.formula-math sub,.formula-math sup{font-size:.7em}.formula-text{font-size:11px;margin:6px 0 0;color:#788d85;line-height:1.5}.note{margin:0 25px 21px;padding:11px 13px;border-left:3px solid #b5dbc7;background:#f7faf7;color:#667e72;font-size:11px;line-height:1.6}.note strong{color:#36574b}
+.dualgrid{display:grid;grid-template-columns:1fr 1fr;gap:0}.dualgrid .plot-block{min-width:0;padding:4px 18px 5px 0;border:0!important;margin:0!important}.dualgrid .plot-block+.plot-block{border-left:1px solid #edf1ee!important;padding-left:18px;padding-right:0}.transport-controls{display:flex;gap:10px;align-items:center;margin:2px 0 5px}.transport-controls input{flex:1;min-width:60px}.mini-button{border:1px solid #d8e7dd;border-radius:8px;background:#f1f8f3;padding:7px 10px;font-size:10px;font-weight:800;color:#317866;white-space:nowrap}.transport-value{font-size:10px;color:#859990;min-width:30px;font-weight:800}.membership{display:inline-block;border-radius:6px;padding:3px 7px;font-size:10px;font-weight:800;color:#925944;background:#fbefe8}.membership.inside{color:#21725c;background:#e5f5ea}.small-details{padding:0 25px 23px;display:flex;gap:14px;flex-wrap:wrap}.small-pill{font-size:11px;background:#f7f9f7;border:1px solid #e8eeea;padding:7px 10px;border-radius:8px;color:#6a8077}.small-pill b{color:#2b5148}.methods{padding:22px 25px 24px}.methods h3{font-size:15px;letter-spacing:-.025em;margin:0 0 8px}.methods p{font-size:11px;color:#788a82;line-height:1.7;margin:6px 0}.methods ul{font-size:11px;color:#788a82;line-height:1.7;margin:8px 0 0;padding-left:18px}.footer{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:27px 0 40px;color:#8da099;font-size:10px}.footer b{color:#5b7770}.divider{height:1px;background:#e7eeea;margin:16px 0}
+@media(max-width:1050px){.shell{width:min(100% - 32px,1510px)}.layout{grid-template-columns:265px minmax(0,1fr);gap:14px}.hero{padding:32px}.hero-art{width:29%}.panel-head,.plots{padding-left:19px;padding-right:19px}.kpis,.formula,.note{margin-left:19px;margin-right:19px}.dualgrid{grid-template-columns:1fr}.dualgrid .plot-block{padding:4px 0 12px!important}.dualgrid .plot-block+.plot-block{border:0!important;border-top:1px solid #edf1ee!important;padding:15px 0 0!important}.small-details,.methods{padding-left:19px;padding-right:19px}}
+@media(max-width:740px){.topbar{min-height:68px}.status{display:none}.shell{width:calc(100% - 24px)}.hero{min-height:0;padding:27px 23px}.hero-art{display:none}.hero h1{font-size:39px}.hero-meta{font-size:9px;gap:8px}.hero-meta span+span:before{padding-right:8px}.introline{padding:15px 3px;font-size:9px}.introline span:last-child{display:none}.layout{display:block}.sidebar{position:static;max-height:none;margin-bottom:15px}.side-head{padding:16px 17px 8px}.side-note{display:none}.side-group{padding:12px 17px}.sidebar-fields{display:grid;grid-template-columns:1fr 1fr;column-gap:18px}.control{margin-bottom:12px}.group-label{margin-bottom:10px}.panel-head{padding-top:19px}.panel h2{font-size:20px}.panel-sub{font-size:11px}.tag{display:none}.kpis{margin-top:14px}.kpi{padding:10px 10px}.kpi-value{font-size:17px}.kpi-label{font-size:9px}.kpi-detail{font-size:9px}.legend{gap:8px}.formula-math{font-size:14px}.footer{padding-bottom:25px}}
+@media(max-width:420px){.sidebar-fields{grid-template-columns:1fr}.hero h1{font-size:34px}.hero-meta span+span:before{content:"";padding:0}.kpis{grid-template-columns:1fr}.kpi+.kpi{border-left:0;border-top:1px solid #e7eee9}.kpi{padding:9px 12px}.kpi-value{font-size:18px;margin-top:0}.hero-desc{font-size:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="shell">
+  <header class="topbar">
+    <div class="brand"><div class="brandmark" aria-hidden="true">∿</div><div><div class="brand-main">UCF / W<sub>1</sub> Lab</div><div class="brand-sub" data-i18n="brandSub">A RESEARCH EXPLORER</div></div></div>
+    <div class="topactions"><div class="status"><span class="dot"></span><span data-i18n="interactive">Interactive demonstration</span></div><button id="language" class="lang" aria-label="Cambiar a español">ES &nbsp; Español</button></div>
+  </header>
+  <section class="hero" aria-labelledby="heroTitle">
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="heroEye">RENEWABLE ENERGY / DECISION-ORIENTED UQ</p>
+      <h1 id="heroTitle"><span data-i18n="heroA">From variability</span><br><em data-i18n="heroB">to better questions.</em></h1>
+      <p class="hero-desc" data-i18n="heroDesc">See how uncertain renewable power becomes an expected cost—and how a shift in its distribution changes the decision.</p>
+      <div class="hero-meta"><span data-i18n="metaA">01 &nbsp; Expected cost</span><span data-i18n="metaB">02 &nbsp; Optimal transport</span><span data-i18n="metaC">03 &nbsp; Distributional robustness</span></div>
+    </div>
+    <div class="hero-art" aria-hidden="true"><svg viewBox="0 0 370 175" fill="none"><path d="M12 146H358M12 108H358M12 70H358M12 32H358" stroke="#90BBAE" stroke-opacity=".13"/><path d="M47 9V160M117 9V160M187 9V160M257 9V160M327 9V160" stroke="#90BBAE" stroke-opacity=".13"/><path d="M18 145C47 144 62 139 80 123C100 105 108 69 129 56C149 44 161 61 180 87C199 113 217 134 248 140C276 146 315 146 354 146" fill="#7BE1B4" fill-opacity=".14"/><path d="M18 145C47 144 62 139 80 123C100 105 108 69 129 56C149 44 161 61 180 87C199 113 217 134 248 140C276 146 315 146 354 146" stroke="#A4EBC7" stroke-width="3" stroke-linecap="round"/><path d="M18 145C70 144 90 142 110 132C131 121 144 96 164 72C185 47 203 43 224 57C245 71 256 106 274 127C291 143 317 145 354 145" stroke="#BAACDF" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/><circle cx="129" cy="56" r="5" fill="#B8F4D2"/><circle cx="224" cy="57" r="5" fill="#C6B8EE"/><path d="M138 38C160 22 189 19 215 39" stroke="#E0F2EA" stroke-opacity=".6" stroke-dasharray="3 5"/><path d="M209 32L216 39L206 40" stroke="#E0F2EA" stroke-opacity=".6"/></svg></div>
+  </section>
+  <div class="introline"><span><strong data-i18n="introStrong">A living model</strong> &nbsp;·&nbsp; <span data-i18n="intro">Change an input. Follow the consequences.</span></span><span data-i18n="context">Illustrative example · 100 MW available capacity</span></div>
+  <div class="layout">
+    <aside class="sidebar" aria-label="Model controls">
+      <div class="side-head"><div><div class="overline" data-i18n="controlOver">Control desk</div><div class="side-title" data-i18n="controlTitle">Shape the scenario</div></div><button class="reset" id="reset" data-i18n="reset">Reset</button></div>
+      <p class="side-note" data-i18n="sideNote">Move the sliders, or animate the schedule. Scroll this panel for all controls.</p>
+      <div class="side-group"><div class="group-label" data-i18n="gDecision">01 / Decision</div><div class="sidebar-fields">
+        <div class="control"><div class="control-line"><label for="s"><span data-i18n="schedule">Scheduled power</span> P<sub>s</sub></label><output id="sOut"></output></div><div class="range-wrap"><input id="s" type="range" min="0" max="100" step="0.25" value="55"></div><div class="control-hint" data-i18n="scheduleHint">0–100 MW · reference capacity</div><button class="side-button" id="sweep"><span aria-hidden="true">▶ &nbsp;</span><span id="sweepText" data-i18n="sweepPlay">Animate scheduled power</span></button><button class="side-button" id="useOpt" data-i18n="useOpt">Use nominal UCF minimum</button></div>
+        <div class="control"><div class="control-line"><label for="dt" data-i18n="duration">Settlement interval</label></div><select class="side-select" id="dt" aria-label="Settlement interval"><option value="0.25">0.25 h</option><option value="0.5">0.5 h</option><option value="1" selected>1 h</option><option value="4">4 h</option></select><div class="control-hint" data-i18n="durationHint">Used to convert power into energy</div></div>
+      </div></div>
+      <div class="side-group"><div class="group-label" data-i18n="gCosts">02 / Penalties</div><div class="sidebar-fields">
+        <div class="control"><div class="control-line"><label for="co"><span data-i18n="over">Overestimation</span> c<sub>o</sub></label><output id="coOut"></output></div><div class="range-wrap"><input id="co" type="range" min="0" max="200" step="1" value="100"></div><div class="control-hint" data-i18n="overHint">Scheduled &gt; available · shortfall</div></div>
+        <div class="control"><div class="control-line"><label for="cu"><span data-i18n="under">Underestimation</span> c<sub>u</sub></label><output id="cuOut"></output></div><div class="range-wrap"><input id="cu" type="range" min="0" max="200" step="1" value="35"></div><div class="control-hint" data-i18n="underHint">Available &gt; scheduled · surplus</div></div>
+      </div></div>
+      <div class="side-group"><div class="group-label" data-i18n="gRef">03 / Reference distribution F₀</div><div class="sidebar-fields">
+        <div class="control"><div class="control-line"><label for="mu0"><span data-i18n="mean">Mean</span> μ<sub>0</sub></label><output id="mu0Out"></output></div><div class="range-wrap"><input id="mu0" type="range" min="15" max="85" step="1" value="55"></div></div>
+        <div class="control"><div class="control-line"><label for="k0"><span data-i18n="concentration">Concentration</span> κ<sub>0</sub></label><output id="k0Out"></output></div><div class="range-wrap"><input id="k0" type="range" min="8" max="30" step="1" value="16"></div><div class="control-hint" data-i18n="shapeHint">Higher κ: less spread</div></div>
+      </div></div>
+      <div class="side-group"><div class="group-label" data-i18n="gAlt">04 / Comparison distribution F₁</div><div class="sidebar-fields">
+        <div class="control"><div class="control-line"><label for="mu1"><span data-i18n="mean">Mean</span> μ<sub>1</sub></label><output id="mu1Out"></output></div><div class="range-wrap"><input id="mu1" type="range" min="15" max="85" step="1" value="40"></div></div>
+        <div class="control"><div class="control-line"><label for="k1"><span data-i18n="concentration">Concentration</span> κ<sub>1</sub></label><output id="k1Out"></output></div><div class="range-wrap"><input id="k1" type="range" min="8" max="30" step="1" value="10"></div><div class="control-hint" data-i18n="shapeHint">Higher κ: less spread</div></div>
+      </div></div>
+      <div class="side-group"><div class="group-label" data-i18n="gRobust">05 / Ambiguity set</div><div class="sidebar-fields"><div class="control"><div class="control-line"><label for="eps"><span data-i18n="radius">Wasserstein radius</span> ε</label><output id="epsOut"></output></div><div class="range-wrap"><input id="eps" type="range" min="0" max="60" step="0.5" value="12"></div><div class="control-hint" data-i18n="radiusHint">A transport budget in MW, not a probability</div></div></div></div>
+    </aside>
+    <main class="content">
+      <section class="panel" id="integrals">
+        <div class="panel-head"><div><div class="panel-kicker"><span class="num">01</span><span data-i18n="p1k">Expected-cost integrals</span></div><h2 data-i18n="p1title">Where does the uncertainty cost come from?</h2><p class="panel-sub" data-i18n="p1sub">The reference distribution is split at the scheduled power. Each shaded side represents a different operational consequence.</p></div><div class="tag" data-i18n="tagNominal">Nominal model</div></div>
+        <div class="kpis"><div class="kpi"><div class="kpi-label" data-i18n="kTotal">Total expected uncertainty cost</div><div class="kpi-value" id="nominalCost">—</div><div class="kpi-detail" data-i18n="perInterval">per settlement interval</div></div><div class="kpi"><div class="kpi-label" data-i18n="kOver">Overestimation / shortfall</div><div class="kpi-value coral" id="overCost">—</div><div class="kpi-detail" data-i18n="perInterval">per settlement interval</div></div><div class="kpi"><div class="kpi-label" data-i18n="kUnder">Underestimation / surplus</div><div class="kpi-value teal" id="underCost">—</div><div class="kpi-detail" data-i18n="perInterval">per settlement interval</div></div></div>
+        <div class="plots"><div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="densityTitle">Available power · reference density</div><div class="plot-subtitle" data-i18n="densitySub">Colored areas indicate probabilities, not costs.</div></div><div class="legend"><span class="legend-item"><span class="swatch" style="--color:#d66a54"></span><span data-i18n="shortfall">Shortfall: P &lt; Pₛ</span></span><span class="legend-item"><span class="swatch" style="--color:#147f73"></span><span data-i18n="surplus">Surplus: P &gt; Pₛ</span></span></div></div><canvas id="density" role="img" aria-label="Distribution of available power with shortfall and surplus shaded"></canvas><div class="chart-foot"><span data-i18n="densityY">Vertical: probability density (1/MW)</span><span data-i18n="powerX">Horizontal: available power P (MW)</span></div></div>
+          <div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="integrandTitle">Integrands · the areas are the expected costs</div><div class="plot-subtitle" data-i18n="integrandSub">Penalty × deviation × probability density × interval length.</div></div><div class="legend"><span class="legend-item"><span class="swatch" style="--color:#d66a54"></span><span data-i18n="over">Overestimation</span></span><span class="legend-item"><span class="swatch" style="--color:#147f73"></span><span data-i18n="under">Underestimation</span></span></div></div><canvas id="integrands" role="img" aria-label="Cost density under the overestimation and underestimation integrals"></canvas><div class="chart-foot"><span data-i18n="integrandY">Vertical: cost density (€/MW)</span><span data-i18n="powerX">Horizontal: available power P (MW)</span></div></div></div>
+        <div class="formula"><div class="formula-label" data-i18n="formulaLabel">The expected-value formulation</div><div class="formula-math">C<sub>0</sub>(P<sub>s</sub>) = Δt [ c<sub>o</sub> ∫<sub>0</sub><sup>Pₛ</sup> (P<sub>s</sub> − p) f<sub>0</sub>(p) dp &nbsp;+&nbsp; c<sub>u</sub> ∫<sub>Pₛ</sub><sup>Pmax</sup> (p − P<sub>s</sub>) f<sub>0</sub>(p) dp ]</div><p class="formula-text" data-i18n="formulaText">P is available power; Pₛ is the schedule. Penalties are in €/MWh, Δt in hours and power in MW; the result is euros per interval.</p></div>
+      </section>
+      <section class="panel" id="curve"><div class="panel-head"><div><div class="panel-kicker"><span class="num">02</span><span data-i18n="p2k">The uncertainty cost function</span></div><h2 data-i18n="p2title">A curve for every decision</h2><p class="panel-sub" data-i18n="p2sub">Move Pₛ to trace the two components and their sum. The minimum below considers the UCF alone—not network or dispatch constraints.</p></div><div class="tag" data-i18n="tagDrag">Drag on the graph</div></div>
+        <div class="kpis"><div class="kpi"><div class="kpi-label" data-i18n="kSchedule">Scheduled power</div><div class="kpi-value" id="scheduleKpi">—</div><div class="kpi-detail" data-i18n="onReference">under reference F₀</div></div><div class="kpi"><div class="kpi-label" data-i18n="kOptimum">Nominal UCF-only minimum</div><div class="kpi-value teal" id="optKpi">—</div><div class="kpi-detail" data-i18n="optApprox">quantile of discretised F₀</div></div><div class="kpi"><div class="kpi-label" data-i18n="kMarginal">Marginal / subgradient at Pₛ</div><div class="kpi-value" id="marginalKpi">—</div><div class="kpi-detail" data-i18n="marginalDetail">€/MW per interval · interval at an atom</div></div></div>
+        <div class="plots"><div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="curveTitle">Expected cost as a function of Pₛ</div><div class="plot-subtitle" data-i18n="curveSub">Click or drag on this chart, or use the schedule slider.</div></div><div class="legend"><span class="legend-item"><span class="swatch" style="--color:#234b55"></span><span data-i18n="total">Total</span></span><span class="legend-item"><span class="swatch" style="--color:#d66a54"></span><span data-i18n="over">Overestimation</span></span><span class="legend-item"><span class="swatch" style="--color:#147f73"></span><span data-i18n="under">Underestimation</span></span></div></div><canvas class="canvas-tall canvas-drag" id="curveCanvas" role="img" aria-label="Expected cost curve; drag to adjust scheduled power"></canvas><div class="chart-foot"><span data-i18n="costY">Vertical: expected cost (€/interval)</span><span data-i18n="scheduleX">Horizontal: scheduled power Pₛ (MW)</span></div></div></div>
+        <div class="note"><strong data-i18n="quantileHead">Why the minimum moves.</strong> <span data-i18n="quantileNote">For a continuous distribution and positive total penalties, the UCF-only minimum satisfies F₀(Pₛ*) = cᵤ/(cₒ+cᵤ). For the discretised display, it is a quantile; if both penalties are zero, every schedule is optimal.</span></div>
+      </section>
+      <section class="panel" id="wasserstein"><div class="panel-head"><div><div class="panel-kicker"><span class="num">03</span><span data-i18n="p3k">One-dimensional optimal transport</span></div><h2 data-i18n="p3title">When the distribution changes</h2><p class="panel-sub" data-i18n="p3sub">Compare the reference F₀ with F₁. Wasserstein-1 measures the minimum average distance needed to move probability mass between them.</p></div><div class="tag" data-i18n="tagTransport">Transport view</div></div>
+        <div class="kpis"><div class="kpi"><div class="kpi-label" data-i18n="kW1">Wasserstein distance W₁(F₀,F₁)</div><div class="kpi-value" id="w1Kpi">—</div><div class="kpi-detail" data-i18n="w1Detail">average transport distance</div></div><div class="kpi"><div class="kpi-label" data-i18n="kChange">|Change in expected cost|</div><div class="kpi-value" id="deltaKpi">—</div><div class="kpi-detail" data-i18n="sameSchedule">same schedule and penalties</div></div><div class="kpi"><div class="kpi-label" data-i18n="kBound">W₁ sensitivity upper bound</div><div class="kpi-value teal" id="boundKpi">—</div><div class="kpi-detail" data-i18n="boundDetail">Δt · max(cₒ,cᵤ) · W₁</div></div></div>
+        <div class="plots"><div class="dualgrid"><div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="cdfTitle">CDFs · the area between them is W₁</div><div class="plot-subtitle" data-i18n="cdfSub">Computed on the common 200-point grid.</div></div></div><div class="legend" style="margin-top:8px"><span class="legend-item"><span class="swatch" style="--color:#234b55"></span><span data-i18n="reference">Reference F₀</span></span><span class="legend-item"><span class="swatch" style="--color:#7765aa"></span><span data-i18n="comparison">Comparison F₁</span></span></div><canvas id="cdfCanvas" class="canvas-short" role="img" aria-label="Two cumulative distributions; the area between them is Wasserstein distance"></canvas><div class="chart-foot"><span data-i18n="cdfY">Vertical: cumulative probability</span><span data-i18n="powerShortX">P (MW)</span></div></div>
+          <div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="transportTitle">Animate the transport</div><div class="plot-subtitle" data-i18n="transportSub">Each marker follows the same quantile from F₀ to F₁.</div></div></div><div class="transport-controls"><button class="mini-button" id="transport"><span aria-hidden="true">▶ &nbsp;</span><span id="transportText" data-i18n="transportPlay">Play transport</span></button><input type="range" id="t" min="0" max="100" step="1" value="40" aria-label="Transport animation progress"><output id="tOut" class="transport-value">40%</output></div><canvas id="transportCanvas" class="canvas-short" role="img" aria-label="Animated transport between reference and comparison quantiles"></canvas><div class="chart-foot"><span data-i18n="dotsNote">11 markers illustrate the transport; W₁ uses all grid points.</span></div></div></div></div>
+        <div class="formula"><div class="formula-label" data-i18n="wFormulaLabel">Distance and cost sensitivity</div><div class="formula-math">W<sub>1</sub>(F<sub>0</sub>,F<sub>1</sub>) = ∫<sub>0</sub><sup>Pmax</sup> |F<sub>0</sub>(p) − F<sub>1</sub>(p)| dp &nbsp;=&nbsp; ∫<sub>0</sub><sup>1</sup> |F<sub>0</sub><sup>−1</sup>(u) − F<sub>1</sub><sup>−1</sup>(u)| du</div><div class="formula-math">|C<sub>1</sub> − C<sub>0</sub>| ≤ Δt · max(c<sub>o</sub>, c<sub>u</sub>) · W<sub>1</sub>(F<sub>0</sub>,F<sub>1</sub>)</div><p class="formula-text" data-i18n="wFormulaText">The right-hand side is a valid upper bound for this linear loss, not the actual cost change and not an EMT stability guarantee.</p></div>
+        <div class="small-details"><span class="small-pill"><span data-i18n="compCost">Comparison expected cost</span>: <b id="compCost">—</b></span><span class="small-pill"><span data-i18n="membershipLabel">Comparison F₁ relative to ε</span>: <span class="membership" id="membership">—</span></span></div>
+      </section>
+      <section class="panel" id="robust"><div class="panel-head"><div><div class="panel-kicker"><span class="num">04</span><span data-i18n="p4k">Distributionally robust cost</span></div><h2 data-i18n="p4title">A family of plausible distributions</h2><p class="panel-sub" data-i18n="p4sub">For each schedule, maximise expected cost over all distributions supported on 0–100 MW within radius ε of the discretised reference.</p></div><div class="tag" data-i18n="tagDual">1D dual solution</div></div>
+        <div class="kpis"><div class="kpi"><div class="kpi-label" data-i18n="kNominal">Nominal cost at Pₛ</div><div class="kpi-value" id="robNom">—</div><div class="kpi-detail" data-i18n="underRef">reference F₀</div></div><div class="kpi"><div class="kpi-label" data-i18n="kWorst">Worst-case cost at Pₛ</div><div class="kpi-value coral" id="robWorst">—</div><div class="kpi-detail" data-i18n="withinBall">inside the W₁ ball</div></div><div class="kpi"><div class="kpi-label" data-i18n="kCeiling">Lipschitz upper bound</div><div class="kpi-value" id="robCeiling">—</div><div class="kpi-detail" data-i18n="notEq">an upper bound, not necessarily equal</div></div></div>
+        <div class="plots"><div class="plot-block"><div class="plot-titlebar"><div><div class="plot-title" data-i18n="robCurveTitle">Nominal, robust and bound</div><div class="plot-subtitle" data-i18n="robCurveSub">The robust minimum is searched on a 0.5 MW grid.</div></div><div class="legend"><span class="legend-item"><span class="swatch" style="--color:#234b55"></span><span data-i18n="nominal">Nominal</span></span><span class="legend-item"><span class="swatch" style="--color:#d66a54"></span><span data-i18n="worst">Worst case</span></span><span class="legend-item"><span class="swatch dashed" style="--color:#a5afb0"></span><span data-i18n="upperBound">Upper bound</span></span></div></div><canvas id="robustCanvas" class="canvas-tall canvas-drag" role="img" aria-label="Nominal and worst-case uncertainty cost curves; drag to adjust scheduled power"></canvas><div class="chart-foot"><span data-i18n="costY">Vertical: expected cost (€/interval)</span><span data-i18n="scheduleX">Horizontal: scheduled power Pₛ (MW)</span></div></div></div>
+        <div class="small-details"><span class="small-pill"><span data-i18n="robOptLabel">Robust UCF-only minimum</span>: <b id="robOpt">—</b></span><span class="small-pill"><span data-i18n="radiusLabel">Radius ε</span>: <b id="epsLabel">—</b></span></div>
+        <div class="formula"><div class="formula-label" data-i18n="droFormulaLabel">A bounded-support Wasserstein ball</div><div class="formula-math">C<sub>rob</sub>(P<sub>s</sub>) = sup<sub>Q: W₁(Q,F₀) ≤ ε, supp(Q) ⊆ [0,Pmax]</sub> E<sub>Q</sub>[ ℓ(P<sub>s</sub>,P) ]</div><p class="formula-text" data-i18n="droFormulaText">Numerically solved with a one-dimensional dual for the discretised reference and this particular piecewise-linear loss. ε is an illustrative input; no statistical confidence level is implied.</p></div>
+      </section>
+      <section class="panel"><div class="methods"><h3 data-i18n="limitsTitle">Read the model before reading the numbers.</h3><p data-i18n="limitsText">This is a self-contained educational prototype for a possible UTOPYS collaboration—not an official UTOPYS tool, an EMT simulator, a calibrated forecast or a reproduction of the EGA Explorer.</p><ul><li data-i18n="lim1">Both inputs are synthetic beta distributions on [0, 100] MW, approximated by a 200-point midpoint probability measure. Real wind and solar may have point masses at zero or rated capacity, and spatial and temporal dependence.</li><li data-i18n="lim2">The robust curve is the dual solution for that discretised reference, continuous bounded support and the specified linear penalties. An operational study requires data-driven costs, a defensible radius, network constraints and out-of-sample validation.</li><li data-i18n="lim3">A scalar UCF does not predict converter dynamics, guarantee stability or replace EMT simulations. Sensitivity bounds for discontinuous failure indicators require additional analysis.</li></ul><div class="divider"></div><p><b data-i18n="credit">Research context: Prof. Sergio Rivera · renewable uncertainty cost functions.</b> <span data-i18n="credit2">Interactive illustration prepared for discussion; values are illustrative.</span></p></div></section>
+    </main>
+  </div>
+  <footer class="footer"><span><b>UCF / W₁ LAB</b> &nbsp;·&nbsp; <span data-i18n="footerText">A decision-aware uncertainty explorer</span></span><span data-i18n="offline">Works offline · No data are uploaded</span></footer>
+</div>
+<script>
+/* Numerical core for the self-contained UCF / W1 explorer.
+   Reference and comparison are midpoint-discretised beta densities on [0,M].
+   The W1 distance is exact for these discrete measures on the common grid.
+   The DRO dual is solved over a bounded, continuous support. */
+const UCFMath = (() => {
+  const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+  function beta(mu, kappa, n = 200, M = 100) {
+    if (!(mu > 0 && mu < 1 && kappa > 0 && n >= 2 && M > 0)) throw Error('Invalid beta parameters');
+    const a = mu * kappa, b = (1 - mu) * kappa, dx = M / n;
+    const xs = [], logs = []; let maxLog = -Infinity;
+    for (let i = 0; i < n; i++) {
+      const z = (i + .5) / n;
+      const log = (a - 1) * Math.log(z) + (b - 1) * Math.log(1 - z);
+      xs.push(z * M); logs.push(log); maxLog = Math.max(maxLog, log);
+    }
+    const mass = logs.map(x => Math.exp(x - maxLog));
+    const norm = mass.reduce((a,b) => a + b, 0);
+    let c = 0;
+    const cdf = mass.map((x, i) => { mass[i] = x / norm; c += mass[i]; return c; });
+    cdf[cdf.length-1] = 1;
+    return {xs, mass, cdf, dx, M, n, mu, kappa, alpha:a, beta:b};
+  }
+  function parts(s, co, cu, dt, d) {
+    let over = 0, under = 0;
+    for (let i = 0; i < d.n; i++) {
+      const x = d.xs[i], m = d.mass[i];
+      over += m * Math.max(s - x, 0);
+      under += m * Math.max(x - s, 0);
+    }
+    over *= co * dt; under *= cu * dt;
+    return {over, under, total:over + under};
+  }
+  function w1(d0, d1) {
+    if (d0.n !== d1.n || d0.M !== d1.M) throw Error('W1 requires common grid');
+    let sum = 0;
+    for (let i=0;i<d0.n-1;i++) sum += Math.abs(d0.cdf[i]-d1.cdf[i]) * d0.dx;
+    return sum;
+  }
+  function quantile(d, u) {
+    if (u <= 0) return 0;
+    if (u >= 1) return d.M;
+    let lo=0, hi=d.n-1;
+    while (lo<hi) { const m=(lo+hi)>>1; if (d.cdf[m]>=u) hi=m; else lo=m+1; }
+    return d.xs[lo];
+  }
+  // sup_Q E_Q loss(s,P), W1(Q,d)<=epsilon and support in [0,M].
+  // On each side of x, loss(z)-lambda*|z-x| is convex in z, hence its
+  // maximum is among z=0,x,M. Strong duality holds for bounded support.
+  function robust(s, co, cu, dt, epsilon, d, iterations=30) {
+    const nominal = parts(s,co,cu,dt,d).total;
+    const A=co*dt, B=cu*dt, L=Math.max(A,B), M=d.M;
+    if (epsilon<=0 || L===0) return {value:nominal, lambda:epsilon<=0?L:0};
+    let low=0, high=L;
+    for(let it=0;it<iterations;it++) {
+      const lambda=(low+high)/2;
+      let move=0;
+      for(let i=0;i<d.n;i++) {
+        const x=d.xs[i];
+        let best=A*Math.max(s-x,0)+B*Math.max(x-s,0), dist=0;
+        const left=A*s-lambda*x;
+        if(left>best){best=left;dist=x;}
+        const right=B*(M-s)-lambda*(M-x);
+        if(right>best){best=right;dist=M-x;}
+        move+=d.mass[i]*dist;
+      }
+      if(move>epsilon) low=lambda; else high=lambda;
+    }
+    const lambda=(low+high)/2;
+    let value=lambda*epsilon;
+    for(let i=0;i<d.n;i++) {
+      const x=d.xs[i];
+      const stay=A*Math.max(s-x,0)+B*Math.max(x-s,0);
+      value += d.mass[i]*Math.max(stay,A*s-lambda*x,B*(M-s)-lambda*(M-x));
+    }
+    return {value,lambda};
+  }
+  function expectedOptimum(co,cu,d) {
+    if(co===0 && cu===0) return null;
+    return quantile(d, cu/(co+cu));
+  }
+  return {beta, parts, w1, quantile, robust, expectedOptimum, clamp};
+})();
+if (typeof module !== 'undefined' && module.exports) module.exports = UCFMath;
+
+</script>
+<script>
+(() => {
+'use strict';
+const $ = id => document.getElementById(id);
+const es = {
+ brandSub:'EXPLORADOR DE INVESTIGACIÓN',interactive:'Demostración interactiva',heroEye:'ENERGÍAS RENOVABLES / UQ ORIENTADA A DECISIONES',heroA:'De la variabilidad',heroB:'a mejores preguntas.',heroDesc:'Observe cómo la potencia renovable incierta se convierte en un costo esperado y cómo cambia la decisión cuando cambia su distribución.',metaA:'01  Costo esperado',metaB:'02  Transporte óptimo',metaC:'03  Robustez distribucional',introStrong:'Un modelo en movimiento',intro:'Cambie una entrada. Observe sus consecuencias.',context:'Ejemplo ilustrativo · capacidad disponible de 100 MW',controlOver:'Panel de control',controlTitle:'Construya el escenario',reset:'Restablecer',sideNote:'Mueva los controles o anime la potencia programada. Desplácese en este panel para verlos todos.',gDecision:'01 / Decisión',schedule:'Potencia programada',scheduleHint:'0–100 MW · capacidad de referencia',sweepPlay:'Animar potencia programada',sweepPause:'Pausar animación',useOpt:'Usar mínimo nominal de UCF',duration:'Intervalo de liquidación',durationHint:'Convierte potencia en energía',gCosts:'02 / Penalizaciones',over:'Sobrestimación',under:'Subestimación',overHint:'Programada > disponible · déficit',underHint:'Disponible > programada · excedente',gRef:'03 / Distribución de referencia F₀',mean:'Media',concentration:'Concentración',shapeHint:'Mayor κ: menor dispersión',gAlt:'04 / Distribución de comparación F₁',gRobust:'05 / Conjunto de ambigüedad',radius:'Radio de Wasserstein',radiusHint:'Presupuesto de transporte en MW, no una probabilidad',p1k:'Integrales del costo esperado',p1title:'¿De dónde proviene el costo de incertidumbre?',p1sub:'La potencia programada divide la distribución de referencia. Cada región representa una consecuencia operativa diferente.',tagNominal:'Modelo nominal',kTotal:'Costo esperado total de incertidumbre',kOver:'Sobrestimación / déficit',kUnder:'Subestimación / excedente',perInterval:'por intervalo de liquidación',densityTitle:'Potencia disponible · densidad de referencia',densitySub:'Las áreas coloreadas son probabilidades, no costos.',shortfall:'Déficit: P < Pₛ',surplus:'Excedente: P > Pₛ',densityY:'Vertical: densidad de probabilidad (1/MW)',powerX:'Horizontal: potencia disponible P (MW)',integrandTitle:'Integrandos · las áreas son costos esperados',integrandSub:'Penalización × desviación × densidad de probabilidad × duración.',integrandY:'Vertical: densidad de costo (€/MW)',formulaLabel:'Formulación como valor esperado',formulaText:'P es la potencia disponible y Pₛ la programada. Penalizaciones en €/MWh, Δt en horas y potencia en MW; el resultado está en euros por intervalo.',p2k:'La función de costo de incertidumbre',p2title:'Una curva para cada decisión',p2sub:'Mueva Pₛ para recorrer los dos componentes y su suma. El mínimo considera solo la UCF, sin restricciones de red ni de despacho.',tagDrag:'Arrastre en la gráfica',kSchedule:'Potencia programada',onReference:'bajo la referencia F₀',kOptimum:'Mínimo nominal solo de la UCF',optApprox:'cuantil de F₀ discretizada',kMarginal:'Costo marginal / subgradiente en Pₛ',marginalDetail:'€/MW por intervalo · intervalo en un átomo',curveTitle:'Costo esperado en función de Pₛ',curveSub:'Haga clic o arrastre en esta gráfica, o use el control de potencia.',total:'Total',costY:'Vertical: costo esperado (€/intervalo)',scheduleX:'Horizontal: potencia programada Pₛ (MW)',quantileHead:'Por qué cambia el mínimo.',quantileNote:'Para una distribución continua y penalizaciones cuya suma es positiva, el mínimo de la UCF satisface F₀(Pₛ*) = cᵤ/(cₒ+cᵤ). En la versión discretizada es un cuantil; si ambas penalizaciones son cero, cualquier programación es óptima.',p3k:'Transporte óptimo unidimensional',p3title:'Cuando cambia la distribución',p3sub:'Compare la referencia F₀ con F₁. Wasserstein-1 mide la distancia media mínima necesaria para transportar la masa de probabilidad entre ambas.',tagTransport:'Vista de transporte',kW1:'Distancia de Wasserstein W₁(F₀,F₁)',w1Detail:'distancia media de transporte',kChange:'|Cambio en el costo esperado|',sameSchedule:'misma programación y penalizaciones',kBound:'Cota de sensibilidad con W₁',boundDetail:'Δt · max(cₒ,cᵤ) · W₁',cdfTitle:'CDF · el área entre curvas es W₁',cdfSub:'Calculada en la malla común de 200 puntos.',reference:'Referencia F₀',comparison:'Comparación F₁',cdfY:'Vertical: probabilidad acumulada',powerShortX:'P (MW)',transportTitle:'Anime el transporte',transportSub:'Cada marcador sigue el mismo cuantil desde F₀ hasta F₁.',transportPlay:'Reproducir',transportPause:'Pausar',dotsNote:'11 marcadores ilustran el transporte; W₁ usa todos los puntos.',wFormulaLabel:'Distancia y sensibilidad del costo',wFormulaText:'El lado derecho es una cota superior válida para esta penalización lineal; no es el cambio real de costo ni una garantía de estabilidad EMT.',compCost:'Costo esperado de comparación',membershipLabel:'F₁ respecto al radio ε',p4k:'Costo distribucionalmente robusto',p4title:'Una familia de distribuciones posibles',p4sub:'Para cada programación, se maximiza el costo esperado entre las distribuciones con soporte en 0–100 MW y a distancia ≤ ε de la referencia discretizada.',tagDual:'Solución dual 1D',kNominal:'Costo nominal en Pₛ',underRef:'referencia F₀',kWorst:'Costo de peor caso en Pₛ',withinBall:'dentro de la bola W₁',kCeiling:'Cota superior de Lipschitz',notEq:'cota superior, no necesariamente igual',robCurveTitle:'Nominal, robusto y cota',robCurveSub:'El mínimo robusto se busca en una malla de 0,5 MW.',nominal:'Nominal',worst:'Peor caso',upperBound:'Cota superior',robOptLabel:'Mínimo robusto solo de la UCF',radiusLabel:'Radio ε',droFormulaLabel:'Bola de Wasserstein con soporte acotado',droFormulaText:'Se resuelve numéricamente mediante el dual unidimensional para la referencia discretizada y esta penalización lineal a trozos. ε es ilustrativo y no implica un nivel de confianza estadístico.',limitsTitle:'Lea el modelo antes que los números.',limitsText:'Este es un prototipo educativo autocontenido para discutir una posible colaboración con UTOPYS: no es una herramienta oficial de UTOPYS, ni un simulador EMT, ni un pronóstico calibrado, ni una reproducción de EGA Explorer.',lim1:'Las dos entradas son distribuciones beta sintéticas en [0, 100] MW, aproximadas mediante una medida de probabilidad de 200 puntos medios. La energía eólica y solar real puede tener masas en cero o en la potencia nominal, y dependencia espacial y temporal.',lim2:'La curva robusta es la solución dual para esa referencia discretizada, soporte continuo acotado y penalizaciones lineales especificadas. Un estudio operativo requiere costos basados en datos, un radio justificable, restricciones de red y validación fuera de muestra.',lim3:'Una UCF escalar no predice la dinámica de convertidores, no garantiza estabilidad y no reemplaza simulaciones EMT. Las cotas de sensibilidad de indicadores de falla discontinuos requieren análisis adicional.',credit:'Contexto de investigación: profesor Sergio Rivera · funciones de costo de incertidumbre renovable.',credit2:'Ilustración interactiva preparada para discusión; valores ilustrativos.',footerText:'Un explorador de incertidumbre orientado a decisiones',offline:'Funciona sin internet · No se envían datos'
+};
+const en = {};
+document.querySelectorAll('[data-i18n]').forEach(el => { if (!(el.dataset.i18n in en)) en[el.dataset.i18n]=el.textContent; });
+// Dynamic labels are not necessarily present in the initial markup.
+en.sweepPause='Pause animation'; en.transportPause='Pause';
+let lang='en', sweeping=false, transporting=false, animFrame=0, lastFrame=0, dir=1, sweepPosition=55;
+const defaults={s:55,co:100,cu:35,dt:1,mu0:55,k0:16,mu1:40,k1:10,eps:12,t:40};
+const state={...defaults};
+const ids=Object.keys(defaults), M=100, N=200;
+let d0key='',d1key='',curveKey='',d0,d1,curveData;
+const C={ink:'#234b55',teal:'#147f73',coral:'#d66a54',purple:'#7765aa',light:'#a5afb0',grid:'#e8eeeb',axis:'#94a39d'};
+const tf = (key) => (lang==='es' ? es[key] : en[key]) || en[key] || key;
+const fmt=(x,dec=1) => new Intl.NumberFormat(lang==='es'?'es-CO':'en-GB',{maximumFractionDigits:dec,minimumFractionDigits:0}).format(Math.abs(x)<1e-11?0:x);
+const euro=(x) => '€' + fmt(x,2);
+function applyLanguage(){
+ document.documentElement.lang=lang;
+ document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n; el.textContent=tf(key);});
+ $('language').textContent=lang==='en'?'ES  Español':'EN  English';
+ $('language').setAttribute('aria-label',lang==='en'?'Cambiar a español':'Switch to English');
+ $('dt').setAttribute('aria-label',tf('duration'));
+ $('t').setAttribute('aria-label',lang==='en'?'Transport animation progress':'Progreso de la animación de transporte');
+ updateButtons();
+}
+function updateButtons(){
+ $('sweepText').textContent=tf(sweeping?'sweepPause':'sweepPlay');
+ $('sweep').querySelector('span[aria-hidden]').textContent=sweeping?'Ⅱ  ':'▶  ';
+ $('transportText').textContent=tf(transporting?'transportPause':'transportPlay');
+ $('transport').querySelector('span[aria-hidden]').textContent=transporting?'Ⅱ  ':'▶  ';
+ $('sweep').setAttribute('aria-pressed',String(sweeping));
+ $('transport').setAttribute('aria-pressed',String(transporting));
+}
+function setOutputs(){
+ $('sOut').textContent=fmt(state.s,2)+' MW'; $('coOut').textContent=fmt(state.co,0)+' €/MWh';
+ $('cuOut').textContent=fmt(state.cu,0)+' €/MWh'; $('mu0Out').textContent=fmt(state.mu0,0)+' MW';
+ $('mu1Out').textContent=fmt(state.mu1,0)+' MW'; $('k0Out').textContent=fmt(state.k0,0);
+ $('k1Out').textContent=fmt(state.k1,0); $('epsOut').textContent=fmt(state.eps,1)+' MW';
+ $('tOut').textContent=fmt(state.t,0)+'%';
+}
+function data(){
+ const a=[state.mu0,state.k0].join('/'), b=[state.mu1,state.k1].join('/');
+ if(a!==d0key){d0=UCFMath.beta(state.mu0/100,state.k0,N,M);d0key=a;}
+ if(b!==d1key){d1=UCFMath.beta(state.mu1/100,state.k1,N,M);d1key=b;}
+ const ck=[d0key,state.co,state.cu,state.dt,state.eps].join('/');
+ if(ck!==curveKey){
+  const xs=[],over=[],under=[],total=[],robust=[],ceiling=[]; let best=Infinity, bestS=0;
+  const L=state.dt*Math.max(state.co,state.cu);
+  for(let i=0;i<=200;i++){
+    const s=i*M/200, p=UCFMath.parts(s,state.co,state.cu,state.dt,d0);
+    const r=UCFMath.robust(s,state.co,state.cu,state.dt,state.eps,d0,26).value;
+    xs.push(s);over.push(p.over);under.push(p.under);total.push(p.total);robust.push(r);ceiling.push(p.total+L*state.eps);
+    if(r<best-1e-8){best=r;bestS=s;}
+  }
+  curveData={xs,over,under,total,robust,ceiling,best,bestS};curveKey=ck;
+ }
+ return {d0,d1,curves:curveData};
+}
+function resizeCanvas(canvas){
+ const r=canvas.getBoundingClientRect(), w=Math.max(100,r.width), h=Math.max(100,r.height), ratio=Math.min(window.devicePixelRatio||1,2);
+ const bw=Math.round(w*ratio), bh=Math.round(h*ratio);
+ if(canvas.width!==bw || canvas.height!==bh){canvas.width=bw;canvas.height=bh;}
+ const ctx=canvas.getContext('2d'); ctx.setTransform(ratio,0,0,ratio,0,0);ctx.clearRect(0,0,w,h);
+ return {ctx,w,h};
+}
+function tick(x){
+ const a=Math.abs(x); if(a>=1000) return fmt(x,0); if(a>=100) return fmt(x,0); if(a>=10) return fmt(x,1); if(a>=1) return fmt(x,1); if(a>=.1) return fmt(x,2); if(a===0) return '0'; return fmt(x,3);
+}
+function axes(canvas,yMax,percentage=false){
+ const {ctx,w,h}=resizeCanvas(canvas), L=56, R=14, T=12, B=31, pw=w-L-R,ph=h-T-B;
+ const yTop=Math.max(yMax,1e-12); const X=x=>L+pw*x/M, Y=y=>T+ph*(1-y/yTop);
+ ctx.font='10px Inter, Segoe UI, Arial, sans-serif';ctx.textBaseline='middle';ctx.lineWidth=1;
+ for(let i=0;i<=4;i++){
+  let v=yTop*i/4, yy=Y(v);ctx.strokeStyle=C.grid;ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(w-R,yy);ctx.stroke();
+  ctx.fillStyle=C.axis;ctx.textAlign='right';ctx.fillText(percentage?fmt(v*100,0)+'%':tick(v),L-9,yy);
+ }
+ ctx.textAlign='center';ctx.textBaseline='top';ctx.fillStyle=C.axis;
+ for(let i=0;i<=4;i++){const x=M*i/4, xx=X(x);ctx.fillText(fmt(x,0),xx,h-B+9);}
+ return {ctx,w,h,L,R,T,B,pw,ph,X,Y,yMax:yTop};
+}
+function line(g,xs,ys,color,width=2,dash=[]){
+ const {ctx,X,Y}=g;ctx.save();ctx.beginPath();xs.forEach((x,i)=>{if(i===0)ctx.moveTo(X(x),Y(ys[i]));else ctx.lineTo(X(x),Y(ys[i]));});ctx.strokeStyle=color;ctx.lineWidth=width;ctx.setLineDash(dash);ctx.lineJoin='round';ctx.lineCap='round';ctx.stroke();ctx.restore();
+}
+function area(g,xs,ys,color){
+ const {ctx,X,Y}=g;ctx.save();ctx.beginPath();ctx.moveTo(X(xs[0]),Y(0));xs.forEach((x,i)=>ctx.lineTo(X(x),Y(ys[i])));ctx.lineTo(X(xs[xs.length-1]),Y(0));ctx.closePath();ctx.fillStyle=color;ctx.fill();ctx.restore();
+}
+function vline(g,x,label){
+ const {ctx,X,T,ph,L,R,w}=g;let xx=X(x);ctx.save();ctx.strokeStyle='#687e7c';ctx.lineWidth=1.15;ctx.setLineDash([4,4]);ctx.beginPath();ctx.moveTo(xx,T);ctx.lineTo(xx,T+ph);ctx.stroke();ctx.setLineDash([]);ctx.fillStyle='#526e68';ctx.font='bold 10px Inter, Segoe UI, Arial, sans-serif';ctx.textAlign='left';ctx.textBaseline='top';ctx.fillText(label,Math.min(w-R-42,Math.max(L+3,xx+5)),T+5);ctx.restore();
+}
+function marker(g,x,y,color,r=4){g.ctx.save();g.ctx.beginPath();g.ctx.arc(g.X(x),g.Y(y),r,0,Math.PI*2);g.ctx.fillStyle='white';g.ctx.fill();g.ctx.lineWidth=2;g.ctx.strokeStyle=color;g.ctx.stroke();g.ctx.restore();}
+function densityChart(d){
+ const xs=[0,...d.xs,M],ys=[0,...d.mass.map(v=>v/d.dx),0];
+ const g=axes($('density'),Math.max(...ys)*1.16);
+ g.ctx.save();g.ctx.beginPath();g.ctx.rect(g.L,g.T,Math.max(0,g.X(state.s)-g.L),g.ph);g.ctx.clip();area(g,xs,ys,'rgba(214,106,84,.23)');g.ctx.restore();
+ g.ctx.save();g.ctx.beginPath();g.ctx.rect(g.X(state.s),g.T,Math.max(0,g.w-g.R-g.X(state.s)),g.ph);g.ctx.clip();area(g,xs,ys,'rgba(20,127,115,.18)');g.ctx.restore();
+ line(g,xs,ys,C.ink,2.2);vline(g,state.s,'Pₛ');
+}
+function integrandsChart(d){
+ const xs=[0,...d.xs,M,state.s].sort((a,b)=>a-b); const n=d.n;
+ function densAt(x){ if(x<=0||x>=M) return 0; let pos=x/d.dx-.5, i=Math.floor(pos), t=pos-i; if(i<0)return (x/d.xs[0])*d.mass[0]/d.dx; if(i>=n-1)return ((M-x)/(M-d.xs[n-1]))*d.mass[n-1]/d.dx; return ((1-t)*d.mass[i]+t*d.mass[i+1])/d.dx; }
+ const over=xs.map(x=>state.dt*state.co*Math.max(state.s-x,0)*densAt(x));
+ const under=xs.map(x=>state.dt*state.cu*Math.max(x-state.s,0)*densAt(x));
+ const g=axes($('integrands'),Math.max(...over,...under,1e-12)*1.16);
+ area(g,xs,over,'rgba(214,106,84,.23)');area(g,xs,under,'rgba(20,127,115,.20)');line(g,xs,over,C.coral,2.1);line(g,xs,under,C.teal,2.1);vline(g,state.s,'Pₛ');
+}
+function curveChart(d,c){
+ const g=axes($('curveCanvas'),Math.max(...c.total,1e-9)*1.18);
+ area(g,c.xs,c.total,'rgba(35,75,85,.035)');line(g,c.xs,c.over,C.coral,1.8);line(g,c.xs,c.under,C.teal,1.8);line(g,c.xs,c.total,C.ink,2.6);vline(g,state.s,'Pₛ');
+ const v=UCFMath.parts(state.s,state.co,state.cu,state.dt,d).total;marker(g,state.s,v,C.ink,4.3);
+ const opt=UCFMath.expectedOptimum(state.co,state.cu,d);
+ if(opt!==null){const ov=UCFMath.parts(opt,state.co,state.cu,state.dt,d).total;marker(g,opt,ov,C.teal,4.3);}
+}
+function stepPoints(d){
+ const out=[[0,0]]; let prev=0;
+ for(let i=0;i<d.n;i++){out.push([d.xs[i],prev],[d.xs[i],d.cdf[i]]);prev=d.cdf[i];}
+ out.push([M,1]);return out;
+}
+function cdfChart(a,b){
+ const g=axes($('cdfCanvas'),1,true),p0=stepPoints(a),p1=stepPoints(b);const {ctx,X,Y}=g;
+ ctx.save();ctx.beginPath();p0.forEach(([x,y],i)=>i===0?ctx.moveTo(X(x),Y(y)):ctx.lineTo(X(x),Y(y)));for(let i=p1.length-1;i>=0;i--)ctx.lineTo(X(p1[i][0]),Y(p1[i][1]));ctx.closePath();ctx.fillStyle='rgba(119,101,170,.18)';ctx.fill('evenodd');ctx.restore();
+ line(g,p0.map(p=>p[0]),p0.map(p=>p[1]),C.ink,2.1);line(g,p1.map(p=>p[0]),p1.map(p=>p[1]),C.purple,2.0);
+}
+function transportChart(a,b){
+ const {ctx,w,h}=resizeCanvas($('transportCanvas'));const L=35,R=14,T=34,B=38,pw=w-L-R,y0=T,y1=h-B,X=x=>L+pw*x/M,t=state.t/100;
+ ctx.font='bold 9px Inter, Segoe UI, Arial, sans-serif';ctx.textAlign='left';ctx.fillStyle=C.ink;ctx.fillText(lang==='en'?'REFERENCE F₀':'REFERENCIA F₀',L,16);
+ ctx.fillStyle=C.purple;ctx.fillText(lang==='en'?'COMPARISON F₁':'COMPARACIÓN F₁',L,y1+21);
+ ctx.strokeStyle='#e7eeea';ctx.lineWidth=1;for(const yy of [y0,y1]){ctx.beginPath();ctx.moveTo(L,yy);ctx.lineTo(w-R,yy);ctx.stroke();}
+ ctx.font='9px Inter, Segoe UI, Arial, sans-serif';ctx.textAlign='center';ctx.fillStyle=C.axis;
+ for(let i=0;i<=4;i++)ctx.fillText(fmt(i*25,0),X(i*25),h-3);
+ const paths=[];
+ for(let i=0;i<11;i++){const q=(i+.5)/11,x0=UCFMath.quantile(a,q),x1=UCFMath.quantile(b,q);paths.push({x0,x1});ctx.beginPath();ctx.moveTo(X(x0),y0);ctx.lineTo(X(x1),y1);ctx.strokeStyle='rgba(122,144,136,.32)';ctx.lineWidth=1;ctx.stroke();}
+ for(const {x0,x1} of paths){
+   ctx.beginPath();ctx.arc(X(x0),y0,2.8,0,2*Math.PI);ctx.fillStyle=C.teal;ctx.fill();
+   ctx.beginPath();ctx.arc(X(x1),y1,2.8,0,2*Math.PI);ctx.fillStyle=C.purple;ctx.fill();
+   const x=(1-t)*x0+t*x1, y=(1-t)*y0+t*y1;ctx.beginPath();ctx.arc(X(x),y,4,0,2*Math.PI);ctx.fillStyle='#fff';ctx.fill();ctx.lineWidth=1.8;ctx.strokeStyle='#4c8e80';ctx.stroke();
+ }
+}
+function robustChart(d,c){
+ const g=axes($('robustCanvas'),Math.max(...c.ceiling,...c.robust,1e-9)*1.12), {ctx,X,Y}=g;
+ ctx.save();ctx.beginPath();c.xs.forEach((x,i)=>i===0?ctx.moveTo(X(x),Y(c.robust[i])):ctx.lineTo(X(x),Y(c.robust[i])));for(let i=c.xs.length-1;i>=0;i--)ctx.lineTo(X(c.xs[i]),Y(c.total[i]));ctx.closePath();ctx.fillStyle='rgba(214,106,84,.09)';ctx.fill();ctx.restore();
+ line(g,c.xs,c.ceiling,C.light,1.5,[5,5]);line(g,c.xs,c.total,C.ink,2.1);line(g,c.xs,c.robust,C.coral,2.3);vline(g,state.s,'Pₛ');
+ const rw=UCFMath.robust(state.s,state.co,state.cu,state.dt,state.eps,d,28).value;marker(g,state.s,rw,C.coral,4.2);marker(g,c.bestS,c.best,C.teal,4.0);
+}
+function updateMetrics(a,b,c){
+ const p=UCFMath.parts(state.s,state.co,state.cu,state.dt,a),q=UCFMath.parts(state.s,state.co,state.cu,state.dt,b),d=UCFMath.w1(a,b);
+ const L=state.dt*Math.max(state.co,state.cu), ub=L*d, w=UCFMath.robust(state.s,state.co,state.cu,state.dt,state.eps,a,30).value, ceiling=p.total+L*state.eps;
+ const opt=UCFMath.expectedOptimum(state.co,state.cu,a);
+ let cdf=0, atom=0;for(let i=0;i<a.n;i++) { if(a.xs[i]<state.s-1e-8) cdf+=a.mass[i]; else if(Math.abs(a.xs[i]-state.s)<1e-8) atom+=a.mass[i]; }
+ const marginal=state.dt*((state.co+state.cu)*cdf-state.cu), rightMarginal=marginal+state.dt*(state.co+state.cu)*atom;
+ const signed=x=>(x<0?'−':'')+euro(Math.abs(x));
+ $('nominalCost').textContent=euro(p.total);$('overCost').textContent=euro(p.over);$('underCost').textContent=euro(p.under);
+ $('scheduleKpi').textContent=fmt(state.s,2)+' MW';$('optKpi').textContent=opt===null?(lang==='en'?'Any Pₛ':'Cualquier Pₛ'):fmt(opt,2)+' MW';
+ $('useOpt').disabled=opt===null;$('useOpt').style.opacity=opt===null?'.45':'1';
+ $('marginalKpi').textContent=atom>1e-10&&Math.abs(rightMarginal-marginal)>1e-8?'['+signed(marginal)+', '+signed(rightMarginal)+']':signed(marginal);
+ $('marginalKpi').style.fontSize=atom>1e-10?'15px':'';
+ $('w1Kpi').textContent=fmt(d,2)+' MW';$('deltaKpi').textContent=euro(Math.abs(q.total-p.total));$('boundKpi').textContent=euro(ub);$('compCost').textContent=euro(q.total);
+ const isInside=d<=state.eps+1e-8;$('membership').classList.toggle('inside',isInside);$('membership').textContent=isInside?(lang==='en'?'INSIDE':'DENTRO'):(lang==='en'?'OUTSIDE':'FUERA');
+ $('robNom').textContent=euro(p.total);$('robWorst').textContent=euro(w);$('robCeiling').textContent=euro(ceiling);
+ $('robOpt').textContent=state.co===0&&state.cu===0?(lang==='en'?'Any Pₛ':'Cualquier Pₛ'):'≈ '+fmt(c.bestS,1)+' MW';$('epsLabel').textContent=fmt(state.eps,1)+' MW';
+}
+function render(){
+ setOutputs();const {d0:a,d1:b,curves:c}=data();updateMetrics(a,b,c);densityChart(a);integrandsChart(a);curveChart(a,c);cdfChart(a,b);transportChart(a,b);robustChart(a,c);
+}
+let scheduled=false;
+function requestRender(){ if(!scheduled){scheduled=true;requestAnimationFrame(()=>{scheduled=false;render();});} }
+function animate(now){
+ if(!sweeping&&!transporting){animFrame=0;lastFrame=0;return;}
+ const dt=lastFrame?Math.min(now-lastFrame,50):0;lastFrame=now;
+ if(sweeping){sweepPosition+=dir*dt/85;if(sweepPosition>=100){sweepPosition=100;dir=-1;}if(sweepPosition<=0){sweepPosition=0;dir=1;}state.s=Math.round(sweepPosition*4)/4;$('s').value=state.s;}
+ if(transporting){state.t+=dt/65;if(state.t>100)state.t=0;$('t').value=state.t.toFixed(0);}
+ render();animFrame=requestAnimationFrame(animate);
+}
+function startLoop(){if(!animFrame){lastFrame=0;animFrame=requestAnimationFrame(animate);}}
+ids.forEach(id=>$(id).addEventListener('input',e=>{state[id]=Number(e.target.value);if(id==='s'&&sweeping){sweeping=false;updateButtons();}if(id==='t'&&transporting){transporting=false;updateButtons();}requestRender();}));
+$('dt').addEventListener('change',e=>{state.dt=Number(e.target.value);requestRender();});
+$('sweep').addEventListener('click',()=>{sweeping=!sweeping;if(sweeping)sweepPosition=state.s;updateButtons();if(sweeping)startLoop();});
+$('transport').addEventListener('click',()=>{transporting=!transporting;updateButtons();if(transporting)startLoop();});
+$('language').addEventListener('click',()=>{lang=lang==='en'?'es':'en';applyLanguage();requestRender();});
+$('reset').addEventListener('click',()=>{Object.assign(state,defaults);sweeping=false;transporting=false;dir=1;ids.forEach(id=>{$(id).value=state[id]});updateButtons();requestRender();});
+$('useOpt').addEventListener('click',()=>{const a=data().d0,opt=UCFMath.expectedOptimum(state.co,state.cu,a);if(opt===null)return;sweeping=false;state.s=Math.round(opt*4)/4;$('s').value=state.s;updateButtons();requestRender();});
+for(const id of ['curveCanvas','robustCanvas']){
+ const el=$(id);let dragging=false;
+ const move=e=>{const r=el.getBoundingClientRect(), val=UCFMath.clamp((e.clientX-r.left-56)/(r.width-56-14)*M,0,M);state.s=Math.round(val*4)/4;$('s').value=state.s;requestRender();};
+ el.addEventListener('pointerdown',e=>{dragging=true;sweeping=false;updateButtons();try{el.setPointerCapture(e.pointerId)}catch(_){}move(e);});
+ el.addEventListener('pointermove',e=>{if(dragging)move(e);});
+ el.addEventListener('pointerup',()=>{dragging=false;});el.addEventListener('pointercancel',()=>{dragging=false;});
+}
+window.addEventListener('resize',requestRender);
+applyLanguage();render();
+})();
+
+</script>
+</body>
+</html>
